@@ -1,0 +1,21 @@
+body{
+    background: url(img/background1.jpg) no-repeat;
+    background-size: cover;
+}
+
+.wrapper{
+    width: 600px;
+    margin: 0 auto;
+}
+
+table tr td:last-child {
+    width: 120px;
+}
+
+/* container */
+.main-container{
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+}
+
