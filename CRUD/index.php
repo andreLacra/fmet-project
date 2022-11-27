@@ -1,3 +1,14 @@
+<?php
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +31,21 @@
 </head>
 
 <body>
+    <!-- nav bar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="user-information">
+                <img src="img\user-logo.png" alt="" id="user-icon">
+                <a class="navbar-brand"><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
+            </div>
+            <!-- <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+            <a href="logout.php" class="btn btn-danger ml-3">Log Out</a>
+        </div>
+    </nav>
+    <!-- nav bar -->
     <div class="position-absolute top-50 start-50 translate-middle">
         <div class="main-container">
             <div class="wrapper">
@@ -28,10 +54,9 @@
                         <div class="col-md-12">
                             <div class="mt-5 mb-3 clearfix">
                                 <i class="fa-sharp fa-solid fa-plate-utensils"></i>
-                                <h2 class="pull-left">Employees Details</h2>
+                                <h2 class="pull-left">Products Details</h2>
                                 <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add
-                                    New
-                                    Employee</a>
+                                    Product To Track</a>
                             </div>
                             <?php
                     // Include config file

@@ -15,7 +15,20 @@ table tr td:last-child {
 /* container */
 .main-container{
     background-color: white;
-    border-radius: 30px;
-    padding: 20px;
+    border-radius: 35px;
+    padding: 30px;
 }
+
+/* nav bar */
+.nav-bar{
+    background-color: black;
+}
+
+#user-icon{
+    height: 35px;
+    width: 35;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
 
