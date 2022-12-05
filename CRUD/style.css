@@ -1,7 +1,22 @@
 body{
     background: url(img/background1.jpg) no-repeat;
     background-size: cover;
+
+    animation-name: fadeIn;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
 }
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
 .wrapper{
     width: 600px;
@@ -17,6 +32,7 @@ table tr td:last-child {
     background-color: white;
     border-radius: 35px;
     padding: 30px;
+    box-shadow: 20px 20px #00000085;
 }
 
 /* nav bar */
@@ -31,4 +47,7 @@ table tr td:last-child {
     margin-right: 10px;
 }
 
-
+#invalid-expdate{
+    color: red;
+    font-size: 14px;
+}

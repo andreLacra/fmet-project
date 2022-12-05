@@ -1,10 +1,19 @@
 <?php
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+
 // Include config file
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$name = $expdate = $salary = "";
-$name_err = $expdate_err = $salary_err = "";
+$name = $expdate = $location = "";
+$name_err = $expdate_err = $location_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,54 +21,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input_name = trim($_POST["name"]);
     if (empty($input_name)) {
         $name_err = "Please enter product name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
     } else {
         $name = $input_name;
     }
 
     // Validate date
-    $input_expdate = $_POST['expdate'];
+    $input_expdate = $_POST["expdate"];
     if ($input_expdate != '') {
         $expdate = $input_expdate;
     } 
     else {
-        $expdate_err = "Please select the expire date.";    
+        $expdate_err = "Please select the expiration date.";    
     }
-    // function IsDateTime($input_expdate) {
-    //     try {
-    //         $fTime = new DateTime($input_expdate);
-    //         $fTime->format('d/m/Y H:i:s');
-    //         $expdate = $input_expdate;
-    //     }
-    //     catch (Exception $e) {
-    //         $expdate_err = "Please select the expire date.";
-    //     }
-    // }
-
-    // Validate salary
-    $input_salary = trim($_POST["salary"]);
-    if (empty($input_salary)) {
-        $salary_err = "Please enter the salary amount.";
-    } elseif (!ctype_digit($input_salary)) {
-        $salary_err = "Please enter a positive integer value.";
-    } else {
-        $salary = $input_salary;
+ 
+    // Validate location stored
+    $input_locationstored =  isset($_POST['location-stored']);
+    if($input_locationstored){
+        if ($_POST["location-stored"] != '') {
+            $location = $_POST["location-stored"];
+         } 
+         else {
+           $location_err = "Please select where you have stored your item.";
+         }
     }
 
     // Check input errors before inserting in database
-    if (empty($name_err) && empty($expdate_err) && empty($salary_err)) {
+    if (empty($name_err) && empty($expdate_err) && empty($location_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (name, expdate, salary) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO productrecord (productID, product, bestBefore, locationStored) VALUES (?, ?, ?, ?)";
 
         if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sss", $param_name, $param_expdate, $param_salary);
+            $stmt->bind_param("ssss", $param_productID, $param_name, $param_expdate, $param_location);
 
             // Set parameters
+            $param_productID = htmlspecialchars($_SESSION["username"]);
             $param_name = $name;
             $param_expdate = $expdate;
-            $param_salary = $salary;
+            $param_location = $location;
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
@@ -85,22 +84,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
-    <title>Create Record</title>
+    <title>Create Record | Best Before</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
-    <div class="position-absolute top-50 start-50 translate-middle">
+    <!-- nav bar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="user-information">
+                <img src="img\user-logo.png" alt="" id="user-icon">
+                <a class="navbar-brand"><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
+            </div>
+            <!-- <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+            <a href="logout.php" class="btn btn-danger ml-3">Log Out</a>
+        </div>
+    </nav>
+    <!-- nav bar -->
+
+    <div class="d-flex justify-content-center">
         <div class="main-container">
             <div class="wrapper">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 class="mt-5">Create Record</h2>
+                            <h2 class="mt-1">Create Record</h2>
                             <p>Please fill to track the expiration date of your food</p>
+                            <hr>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                 <div class="form-group">
                                     <label>Product Name</label>
@@ -109,22 +126,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         value="<?php echo $name; ?>">
                                     <span class="invalid-feedback"><?php echo $name_err; ?></span>
                                 </div>
-                                <div class="form-group">
-                                    <label>Expiration Date</label>
-                                    <br>
-                                    <span class="datepicker-container"> <input type="date" class="expDateInput"
-                                            name="expdate">
-                                    </span>
-                                    <span class="invalid-feedback"><?php echo $expdate_err; ?></span>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>Expiration Date</label>
+                                            <br>
+                                            <input type="date" placeholder="dd-mm-yyyy" value="" min="2022-01-01"
+                                                max="2050-01-01" name="expdate">
+                                            <br>
+                                            <span class="text-danger"><small><?php echo $expdate_err; ?></small> </span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>Location Stored</label>
+                                            <br>
+                                            <select name="location-stored" id="" class="form-dropdown"
+                                                value="<?php echo $location; ?>">
+                                                <option selected="" value="">Select</option>
+                                                <option value="refrigerator">Refrigerator</option>
+                                                <option value="cupboard">Cupboard</option>
+                                                <option value="table">Table</option>
+                                            </select>
+                                            <br>
+                                            <span class="text-danger"><small><?php echo $location_err; ?></small>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Salary</label>
-                                    <input type="text" name="salary"
-                                        class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>"
-                                        value="<?php echo $salary; ?>">
-                                    <span class="invalid-feedback"><?php echo $salary_err; ?></span>
-                                </div>
-                                <input type="submit" class="btn btn-primary" value="Submit">
+
+                                <input type="submit" class="btn btn-success" value="Submit">
                                 <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
                             </form>
                         </div>
