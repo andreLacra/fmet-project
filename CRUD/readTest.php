@@ -7,22 +7,28 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
+
+// Check existence of id parameter before processing further
+if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     // Include config file
     require_once "config.php";
 
     // Prepare a select statement
-    $productID = htmlspecialchars($_SESSION["username"]); 
-    $sql = "SELECT product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ";
+    $sql = "SELECT product, bestBefore, dateAdded, locationStored FROM productrecord WHERE id = ? ";
 
     if ($stmt = $mysqli->prepare($sql)) {
         // Bind variables to the prepared statement as parameters
+        $stmt->bind_param("i", $param_id);
+
+        // Set parameters
+        $param_id = trim($_GET["id"]);
 
         // Attempt to execute the prepared statement
         if ($stmt->execute()) {
             $result = $stmt->get_result();
 
             if ($result->num_rows == 1) {
-                /* Fetch result row as an associative array. Since the result set
+             /* Fetch result row as an associative array. Since the result set
                 contains only one row, we don't need to use while loop */
                 $row = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -71,7 +77,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     // Close connection
     $mysqli->close();
-
+} 
+// else {
+//     // URL doesn't contain id parameter. Redirect to error page
+//     header("location: error.php");
+//     exit();
+// }
 ?>
 
 <!DOCTYPE html>
