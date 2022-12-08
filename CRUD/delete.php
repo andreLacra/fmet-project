@@ -1,11 +1,20 @@
 <?php
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+
 // Process delete operation after confirmation
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
     // Include config file
     require_once "config.php";
 
     // Prepare a delete statement
-    $sql = "DELETE FROM employees WHERE id = ?";
+    $sql = "DELETE FROM productrecord WHERE id = ?";
 
     if ($stmt = $mysqli->prepare($sql)) {
         // Bind variables to the prepared statement as parameters
@@ -52,6 +61,18 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
 </head>
 
 <body>
+    <!-- nav bar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="user-information">
+                <img src="img\user-logo.png" alt="" id="user-icon">
+                <a class="navbar-brand"><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
+            </div>
+            <a href="logout.php" class="btn btn-danger ml-3">Log Out</a>
+        </div>
+    </nav>
+    <!-- nav bar -->
+
     <div class="position-absolute top-50 start-50 translate-middle">
         <div class="main-container">
             <div class="wrapper">
@@ -62,7 +83,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                 <div class="alert alert-danger">
                                     <input type="hidden" name="id" value="<?php echo trim($_GET["id"]); ?>" />
-                                    <p>Are you sure you want to delete this employee record?</p>
+                                    <p>Are you sure you want to delete this record?</p>
                                     <p>
                                         <input type="submit" value="Yes" class="btn btn-danger">
                                         <a href="index.php" class="btn btn-secondary ml-2">No</a>

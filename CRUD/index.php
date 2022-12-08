@@ -73,8 +73,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     <select name="sortDropdown" id="sort-dropdown"
                                                         class="form-dropdown-3">
                                                         <option selected="" value="">Sort By</option>
-                                                        <option value="nearExpired">Expired: Near - Not Near</option>
-                                                        <option value="notNearExpired">Expired: Not Near - Near</option>
+                                                        <option value="nearExpired">Expired: Ascending</option>
+                                                        <option value="notNearExpired">Expired: Descending</option>
                                                         <option value="latestItem">Latest Item</option>
                                                         <option value="oldestItem">Oldest Item</option>
                                                     </select>
@@ -96,16 +96,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     $sortSelect = isset($_POST["sortDropdown"]) ;
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (($_POST["sortDropdown"]) == "nearExpired") {
-                            $sql = "SELECT product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(bestBefore)asc";
+                            $sql = "SELECT id, product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(bestBefore)asc";
                         }
                         else if(($_POST["sortDropdown"]) == "notNearExpired") {
-                            $sql = "SELECT product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(bestBefore)desc";
+                            $sql = "SELECT id, product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(bestBefore)desc";
                         }
                         else if(($_POST["sortDropdown"]) == "latestItem") {
-                            $sql = "SELECT product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(dateAdded)asc";
+                            $sql = "SELECT id, product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(dateAdded)desc";
                         }
                         else if(($_POST["sortDropdown"]) == "oldestItem") {
-                            $sql = "SELECT product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(dateAdded)desc";
+                            $sql = "SELECT id, product, bestBefore, dateAdded, locationStored FROM productrecord WHERE productID =\"$productID\" ORDER BY date(dateAdded)asc";
                         }
                     }
                         if ($result = $mysqli->query($sql)) {
@@ -125,30 +125,34 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             echo "</thead>";
                             echo '<tbody class="tableBody">';
                                 while ($row = $result->fetch_array()) {
+                                    $storeID = $row['id'];
                                     // check and compare dates
                                     $date1 = new DateTime(); //current date or any date
                                     $date2 = new DateTime($row['bestBefore']);   //expiration date
                                     $diff = $date2->diff($date1)->format("%a");  //find difference
-                                    $days = intval($diff);   //rounding days
+                                    $days = $diff;   //rounding days
                                     $status = "";
+
+                                    if ($date2 < $date1) {// easily comparison of 1355077800 > 1287426600
+                                        $days = 0;
+                                    } 
                                     
                                     if($days == 0){
-                                        $status = '<p class="text-danger">Expired</p>';
+                                        $status = '<span class="text-danger">Expired</span>';
                                     }
                                     else if($days < 10 && $days > 0){
-                                        $status = '<p class="text-warning">Eat Now</p>';
+                                        $status = '<span class="text-warning">Eat Now</span>';
                                     }
                                     else if($days < 20 && $days > 10){
-                                        $status = '<p class="text-warning">Near</p>';
+                                        $status = '<span class="text-warning">Near</span>';
                                     }
                                     else if($days < 40 && $days > 20){
-                                        $status = '<p class="text-primary">Okay</p>';
+                                        $status = '<span class="text-primary">Okay</span>';
                                     }
                                     else if($days > 40){
-                                        $status = '<p class="text-success">Good</p>';
+                                        $status = '<span class="text-success">Good</span>';
                                     }
                                     
-                                    $storeID = $row['id'];
                                     echo "<tr>";
                                     echo "<td>" . $row['product'] . "</td>";
                                     echo "<td>" . $status . "</td>";
@@ -157,7 +161,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     echo "<td>" . $row['dateAdded'] . "</td>";
                                     echo "<td>" . $row['locationStored'] . "</td>";
                                     echo "<td>";
-                                        echo '<a href="readTest.php?id=' . $row['id'] . '" class="mr-3"
+                                        echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3"
                                             title="View Record" data-toggle="tooltip"><svg id="icon-table" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                             <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                                             <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
