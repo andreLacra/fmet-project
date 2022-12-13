@@ -146,9 +146,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <select name="location-stored" id="" class="form-dropdown"
                                                     value="<?php echo $location; ?>">
                                                     <option selected="" value="">Select</option>
-                                                    <option value="refrigerator">Refrigerator</option>
-                                                    <option value="cupboard">Cupboard</option>
-                                                    <option value="table">Table</option>
+                                                    <option value="Cabinet">Cabinet</option>
+                                                    <option value="Cupboard">Cupboard</option>
+                                                    <option value="Dispenser">Dispenser</option>
+                                                    <option value="Pantry">Pantry</option>
+                                                    <option value="Refrigerator">Refrigerator</option>
+                                                    <option value="Table">Table</option>
                                                 </select>
                                                 <br>
                                                 <span class="text-danger"><small><?php echo $location_err; ?></small>

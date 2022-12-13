@@ -22,7 +22,7 @@
 
 <body>
     <!-- nav bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar_top">
         <div class="container-fluid">
             <a class="navbar-brand" href="homepage.php"><img src="img/letter-b.png" alt="" id="main-icon" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -35,10 +35,10 @@
                         <a href="homepage.php" id="navbar-links2">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" id="navbar-links2">Guide</a>
+                        <a href="#section-guide" id="navbar-links2">Guide</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" id="navbar-links2">About</a>
+                        <a href="#section-about" id="navbar-links2">About</a>
                     </li>
                 </ul>
             </div>
@@ -69,23 +69,132 @@
         </svg>
         <div class="d-flex justify-content-center">
             <div class="guide-content-container">
-                <div class="d-flex justify-content-center">
-                    <div class="guide-content">
-                        <h1><b>GUIDE</b></h1>
-                        <h4 id="guide-desc">Learn how to use <b>Best Before</b> to keep track of the expiration date of
-                            your food</h4>
-                        <hr id="guide-separator">
+                <section id="section-guide">
+                    <div class="d-flex justify-content-center">
+                        <div class="guide-content">
+                            <h1><b>GUIDE</b></h1>
+                            <h4 id="guide-desc">Learn how to use <b>Best Before</b> to keep track of the expiration date
+                                of
+                                your food</h4>
+                            <hr id="guide-separator">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="guide-instruction">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card" style="width: 22rem;">
+                                        <video class="card-img-top" width="420" height="340" autoplay muted loop
+                                            playsinline>
+                                            <source src="video/vid1.mp4" type="video/mp4">
+                                        </video>
+                                        <div class="card-body">
+                                            <h5 class="card-text">To use <b>Best Before</b>, scroll on top and press the
+                                                button below our motto</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card" style="width: 22rem;">
+                                        <video class="card-img-top" width="380" height="340" autoplay muted loop
+                                            playsinline>
+                                            <source src="video/vid2.mp4" type="video/mp4">
+                                        </video>
+                                        <div class="card-body">
+                                            <h5 class="card-text">Go ahead and create an account if you do not have one.
+                                                Once created, you will be directed to the log in page.</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card" style="width: 22rem;">
+                                        <video class="card-img-top" width="420" height="340" autoplay muted loop
+                                            playsinline>
+                                            <source src="video/vid3.mp4" type="video/mp4">
+                                        </video>
+                                        <div class="card-body">
+                                            <h5 class="card-text">This is what your dashboard will look like. The short
+                                                tutorial will guide you to use the the webapp.</h5>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="col">
-
+                                <div class="col">
+                                    <div class="card" style="width: 22rem;">
+                                        <video class="card-img-top" width="420" height="340" autoplay muted loop
+                                            playsinline>
+                                            <source src="video/vid4.mp4" type="video/mp4">
+                                        </video>
+                                        <div class="card-body">
+                                            <h5 class="card-text">To use <b>Best Before</b>, scroll on top and press the
+                                                button below our motto</h5>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </section>
+
+                <section class="sec-about" id="section-about">
+                    <div class="d-flex justify-content-center">
+                        <div class="guide-content">
+                            <h1><b>ABOUT</b></h1>
+                            <hr id="guide-separator">
+                            <h4 id="guide-desc"><b>Best Before</b> is a webapp that allows you to track the expiration
+                                date
+                                of your food.</h4>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#ffff" fill-opacity="1"
+                d="M0,96L60,128C120,160,240,224,360,224C480,224,600,160,720,154.7C840,149,960,203,1080,192C1200,181,1320,107,1380,69.3L1440,32L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
+            </path>
+        </svg>
+    </div>
+    <div class="credits-container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <img id="main-icon" src="img/letter-b.png" alt="" />
+                    </div>
                 </div>
+                <p id="copyrights-credits">A product of the University of The East.</p>
+                <p>© 2022 Best Before. All rights reserved.</p>
+            </div>
+            <div class="col">
+                <p>Developers:</p>
+                <p>Dylann Esteban | Shaira Pagaduan | Jude Abuan | Andre Lacra</p>
             </div>
         </div>
     </div>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.getElementById('navbar_top').classList.add('fixed-top');
+                // add padding top to show content behind navbar
+                navbar_height = document.querySelector('.navbar').offsetHeight;
+                document.body.style.paddingTop = navbar_height + 'px';
+            } else {
+                document.getElementById('navbar_top').classList.remove('fixed-top');
+                // remove padding top from body
+                document.body.style.paddingTop = '0';
+            }
+        });
+    });
+    // DOMContentLoaded  end
+    </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

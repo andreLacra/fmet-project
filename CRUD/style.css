@@ -95,6 +95,22 @@ table tr td:last-child {
 
 }
 
+/* credit container */
+.credits-container{
+    background-color: #292b2c;
+    color: white;
+    padding: 30px;
+    text-align: start;
+    margin-top: 10%;
+}
+.copyrights-credits{
+    margin-top: 20px;
+}
+
+/* section about */
+.sec-about{
+    margin-top: 70px;
+}
 
 /* log in */
 .login-container{
@@ -123,6 +139,8 @@ table tr td:last-child {
 }
 
 #btnSort{
+    background-color: #198754;
+    color: white;
     border: none;
     border-radius: 5px;
     margin-bottom: 5px;
@@ -157,6 +175,13 @@ table {
 th,
 td {
     padding: 8px 16px;
+}
+
+.con{
+    width: 1050px;
+}
+.p{
+    width: 1000px;
 }
 
 /* main table container */
@@ -213,8 +238,6 @@ nav{
     border-radius: 26px;
 }
 #main-icon:hover {
-    /* transform: scale(1.2);
-    transition: transform .5s ease; */
     transition: transform .5s ease-in-out;
     transform: scale(1.2) rotate(25deg);
   }
@@ -265,9 +288,15 @@ nav{
 #quote-title{
     font-size: 60px;
     text-align: center;
+    text-shadow:5px 5px 5px black;
 }
 #author-title{
     font-size: 30px;
     text-align: center;
+}
+
+
+#step1{
+    margin-top: 50px !important;
 }
 

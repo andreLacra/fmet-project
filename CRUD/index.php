@@ -48,9 +48,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <div class="container-sm">
         <div class="d-flex justify-content-center align-items-center container ">
-            <div class="table-container">
+            <div class="table-container con">
                 <div class="main-container">
-                    <div class="wrapper">
+                    <div class="wrapper p">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-12">
@@ -68,7 +68,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>"
                                             method="post" onchange="this.form.submit()">
                                             <div class="row">
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <select name="sortDropdown" id="sort-dropdown"
                                                         class="form-dropdown-3">
                                                         <option selected="" value="">Sort By</option>
@@ -205,6 +205,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <script>
     if (<?php echo $days; ?> == 0 || <?php echo $days; ?> < 0) {
         alert("It looks like one of the item is expired. Please DISPOSE, and DO NOT CONSUME.");
+        let audio = Audio("wrong-sound.mp3");
+        audio.play();
     }
     </script>
 

@@ -150,7 +150,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label>Password</label>
                                     <input type="password" name="password"
                                         class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
-                                        value="<?php echo $password; ?>">
+                                        value="<?php echo $password; ?>"
+                                        placeholder="password must be atleast 6 characters">
                                     <span class="invalid-feedback"><?php echo $password_err; ?></span>
                                 </div>
                                 <div class="form-group">
@@ -171,9 +172,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
             </div>
-
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+        </script>
     </body>
 
 </html>
