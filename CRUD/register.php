@@ -101,6 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Sign Up | Best Before</title>
+    <!-- icon -->
+    <link rel="icon" href="img/letter-b.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -108,43 +110,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="position-absolute top-50 start-50 translate-middle">
-        <div class="main-container">
-            <div class="wrapper">
-                <h2>Sign Up</h2>
-                <p>Please fill this form to create an account.</p>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username"
-                            class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
-                            value="<?php echo $username; ?>">
-                        <span class="invalid-feedback"><?php echo $username_err; ?></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password"
-                            class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
-                            value="<?php echo $password; ?>">
-                        <span class="invalid-feedback"><?php echo $password_err; ?></span>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" name="confirm_password"
-                            class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
-                            value="<?php echo $confirm_password; ?>">
-                        <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-                    </div>
-                    <p>Already have an account? <a href="login.php">Login here</a>.</p>
-                </form>
-            </div>
-        </div>
-    </div>
 
-</body>
+    <body>
+        <!-- nav bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="homepage.php"><img src="img/letter-b.png" alt="" id="main-icon" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="homepage.php" id="navbar-links2">Home</a>
+                        </li>
+                </div>
+            </div>
+        </nav>
+        <!-- nav bar -->
+
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="register-container">
+                <div class="d-flex justify-content-center">
+                    <div class="main-container">
+                        <div class="wrapper">
+                            <h2>Sign Up</h2>
+                            <p>Please fill this form to create an account.</p>
+                            <hr>
+                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name="username"
+                                        class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
+                                        value="<?php echo $username; ?>">
+                                    <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" name="password"
+                                        class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
+                                        value="<?php echo $password; ?>">
+                                    <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="confirm_password"
+                                        class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
+                                        value="<?php echo $confirm_password; ?>">
+                                    <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                    <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+                                </div>
+                                <p>Already have an account? <a href="login.php">Login here</a>.</p>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
 
 </html>

@@ -85,6 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Create Record | Best Before</title>
+    <!-- icon -->
+    <link rel="icon" href="img/letter-b.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -100,69 +102,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <img src="img\user-logo.png" alt="" id="user-icon">
                 <a class="navbar-brand"><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
             </div>
-            <!-- <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
+
             <a href="logout.php" class="btn btn-danger ml-3">Log Out</a>
         </div>
     </nav>
     <!-- nav bar -->
 
     <div class="d-flex justify-content-center">
-        <div class="main-container">
-            <div class="wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2 class="mt-1">Create Record</h2>
-                            <p>Please fill to track the expiration date of your food</p>
-                            <hr>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                <div class="form-group">
-                                    <label>Product Name</label>
-                                    <input type="text" name="name"
-                                        class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>"
-                                        value="<?php echo $name; ?>">
-                                    <span class="invalid-feedback"><?php echo $name_err; ?></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label>Expiration Date</label>
-                                            <br>
-                                            <input type="date" placeholder="dd-mm-yyyy" value="" min="2022-01-01"
-                                                max="2050-01-01" name="expdate">
-                                            <br>
-                                            <span class="text-danger"><small><?php echo $expdate_err; ?></small> </span>
+        <div class="create-container">
+            <div class="main-container">
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 class="mt-1">Create Record</h2>
+                                <p>Please fill to track the expiration date of your food</p>
+                                <hr>
+                                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                    <div class="form-group">
+                                        <label>Product Name</label>
+                                        <input type="text" name="name"
+                                            class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>"
+                                            value="<?php echo $name; ?>">
+                                        <span class="invalid-feedback"><?php echo $name_err; ?></span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Expiration Date</label>
+                                                <br>
+                                                <input type="date" placeholder="dd-mm-yyyy"
+                                                    value="<?php echo $expdate; ?>" min="2022-01-01" max="2050-01-01"
+                                                    name="expdate">
+                                                <br>
+                                                <span class="text-danger"><small><?php echo $expdate_err; ?></small>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Location Stored</label>
+                                                <br>
+                                                <select name="location-stored" id="" class="form-dropdown"
+                                                    value="<?php echo $location; ?>">
+                                                    <option selected="" value="">Select</option>
+                                                    <option value="refrigerator">Refrigerator</option>
+                                                    <option value="cupboard">Cupboard</option>
+                                                    <option value="table">Table</option>
+                                                </select>
+                                                <br>
+                                                <span class="text-danger"><small><?php echo $location_err; ?></small>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label>Location Stored</label>
-                                            <br>
-                                            <select name="location-stored" id="" class="form-dropdown"
-                                                value="<?php echo $location; ?>">
-                                                <option selected="" value="">Select</option>
-                                                <option value="refrigerator">Refrigerator</option>
-                                                <option value="cupboard">Cupboard</option>
-                                                <option value="table">Table</option>
-                                            </select>
-                                            <br>
-                                            <span class="text-danger"><small><?php echo $location_err; ?></small>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <input type="submit" class="btn btn-success" value="Submit">
-                                <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
-                            </form>
+                                    <input type="submit" class="btn btn-success" value="Submit">
+                                    <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 </body>

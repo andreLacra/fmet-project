@@ -49,19 +49,19 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                     $statusFont = "text-danger";
                     $status = "Expired";
                 }
-                else if($days < 10 && $days > 0){
+                else if($days <= 10 && $days >= 0){
                     $statusFont = "text-warning";
                     $status = "Eat Now";
                 }
-                else if($days < 20 && $days > 10){
+                else if($days <= 20 && $days >= 10){
                     $statusFont = "text-warning";
                     $status = "Near";
                 }
-                else if($days < 40 && $days > 20){
+                else if($days <= 40 && $days >= 20){
                     $statusFont = "text-primary";
                     $status = "Okay";
                 }
-                else if($days > 40){
+                else if($days >= 40){
                     $statusFont = "text-success";
                     $status = "Good";
                 }
@@ -96,6 +96,8 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 <head>
     <meta charset="UTF-8">
     <title>View Record | Best Before</title>
+    <!-- icon -->
+    <link rel="icon" href="img/letter-b.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">

@@ -15,6 +15,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <head>
     <meta charset="UTF-8">
     <title>Dashboard | Best Before</title>
+    <script src="script.js"></script>
+    <!-- icon -->
+    <link rel="icon" href="img/letter-b.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -38,10 +41,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <img src="img\user-logo.png" alt="" id="user-icon">
                 <a class="navbar-brand"><?php echo htmlspecialchars($_SESSION["username"]); ?></a>
             </div>
-            <!-- <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
             <a href="logout.php" class="btn btn-danger ml-3">Log Out</a>
         </div>
     </nav>
@@ -140,16 +139,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     if($days == 0){
                                         $status = '<span class="text-danger">Expired</span>';
                                     }
-                                    else if($days < 10 && $days > 0){
-                                        $status = '<span class="text-warning">Eat Now</span>';
+                                    else if($days <= 10 && $days >= 0){
+                                        $status = '<span class="text-danger">Eat Now</span>';
                                     }
-                                    else if($days < 20 && $days > 10){
+                                    else if($days <= 20 && $days >= 10){
                                         $status = '<span class="text-warning">Near</span>';
                                     }
-                                    else if($days < 40 && $days > 20){
+                                    else if($days <= 40 && $days >= 20){
                                         $status = '<span class="text-primary">Okay</span>';
                                     }
-                                    else if($days > 40){
+                                    else if($days >= 40){
                                         $status = '<span class="text-success">Good</span>';
                                     }
                                     
@@ -202,6 +201,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
         </div>
     </div>
+
+    <script>
+    if (<?php echo $days; ?> == 0 || <?php echo $days; ?> < 0) {
+        alert("It looks like one of the item is expired. Please DISPOSE, and DO NOT CONSUME.");
+    }
+    </script>
 
 </body>
 
