@@ -1,3 +1,0 @@
-function expirationAlert(){
-    alert("SUCCESS!");
-}
